@@ -1,0 +1,177 @@
+{% extends 'web/basehome.html' %}
+{% block css %}
+    <style>
+        .spinner {
+            width: 100px;
+        }
+
+        .spinner input {
+            text-align: right;
+        }
+
+        .input-group-btn-vertical {
+            position: relative;
+            white-space: nowrap;
+            width: 1%;
+            vertical-align: middle;
+            display: table-cell;
+        }
+
+        .input-group-btn-vertical > .btn {
+            display: block;
+            float: none;
+            width: 100%;
+            max-width: 100%;
+            padding: 8px;
+            margin-left: -1px;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .input-group-btn-vertical > .btn:first-child {
+            border-top-right-radius: 4px;
+        }
+
+        .input-group-btn-vertical > .btn:last-child {
+            margin-top: -2px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .input-group-btn-vertical i {
+            position: absolute;
+            top: 0;
+            left: 4px;
+        }
+
+        .ll span {
+            margin-right: 50px;
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
+{% block search %}
+    <div class="row search">
+        <div class="container">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">搜索</button>
+      </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </div>
+    <div class="container-fluid">
+        <img src="/static/{{ obj.object.store.nav_bar_image }}" class="img-responsive" alt="Responsive image">
+    </div>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{ url_for('web.index') }}">首页</a></li>
+            <li><a href="#">电脑配件</a></li>
+            <li><a href="">{{ obj.category }}</a></li>
+            <li class="active"><a href="">{{ obj.object.detail.brand }} {{ obj.object.detail.model }}</a></li>
+        </ol>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="" class="thumbnail">
+                    <img src="/static{{ obj.object.commodity_figure_path }}" alt="..."
+                         style="width: 400px;height: 400px">
+                </a>
+            </div>
+            <div class="col-md-7">
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading"><strong>{{ obj.object.name }}</strong></h4>
+                        <h6 style="color: #e4393c">{{ obj.object.slogan }}</h6>
+                        <div class="well well-sm">h y 价：<span
+                                style="color: red">￥<b>{{ obj.object.sale_price }}</b></span></div>
+                    </div>
+                    <div class="jumbotron">
+                        <h1>其他附加选项留白</h1>
+                    </div>
+                    <hr>
+                    <div class="container">
+                        <div class="col-md-2">
+                            <div class="input-group spinner">
+                                <input type="text" class="form-control" id="count" value="1">
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up">+</i>
+                                    </button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down">-</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <p><a class="btn btn-primary btn-lg" id="add" role="button"
+                                  style="color:whitesmoke;">添加到购物车</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active"><a href="#">商品介绍</a></li>
+                            <li role="presentation"><a href="#">规格与包装</a></li>
+                            <li role="presentation"><a href="#">商品评价</a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body ll">
+                        <p>品牌: <a href="">{{ obj.object.detail.brand }}</a></p>
+                        <span>商品名称：{{ obj.object.detail.brand }} {{ obj.object.detail.model }}</span>
+                        <span>商品编号：{{ obj.id }}</span>
+                        <span>接口：{{ obj.object.detail.interface }}</span>
+                        <span>搭配主板：{{ obj.object.detail.match_mainboard }}</span>
+                        <span>处理器({{ obj.object.detail.brand }}):{{ obj.object.detail.series }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container col-md-offset-3">
+        {% for image in obj.detail_image %}
+        <img src="/static{{ image.path }}" alt="" style="margin-top: 10px">
+
+        {% endfor %}
+
+
+    </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        (function ($) {
+            $('.spinner .btn:first-of-type').on('click', function () {
+                $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+            });
+            $('.spinner .btn:last-of-type').on('click', function () {
+                if ($('.spinner input').val() > 1) {
+                    $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+                }
+
+            });
+        })(jQuery);
+
+
+        $('#add').on('click', function () {
+            $.ajax({
+                url:'{{ url_for('usr.add_to_cart') }}',
+                method: 'post',
+                data: {'count': $('#count').val(), 'pid':{{ obj.id }}},
+                success: function (data) {
+                    if (data.status == 'success') {
+                        window.location.href = data.url
+                    }
+                }
+
+            })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'web/basehome.html' %}
+{% block search %}
+    <div class="row search">
+        <div class="container">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." id="search">
+                    <span class="input-group-btn">
+        <button class="btn btn-default " type="button"><a class="query" href="{{ url_for('web.query') }}?query=">搜索</a></button>
+      </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+    </div>
+    <div class="container">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                电脑配件
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="{{ url_for('web.get_list') }}?cat=cpu">CPU</a></li>
+                <li><a href="#">显卡</a></li>
+            </ul>
+        </div>
+    </div>
+    {% block result %}
+    {% endblock %}
+
+{% endblock %}
+{% block script %}
+    <script>
+    $('#search').on('input propertychange',function () {
+        var condition=$(this).val();
+        $('.query').attr('href','query_cpu?query='+condition)
+    })
+    </script>
+{% endblock %}

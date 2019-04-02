@@ -1,0 +1,95 @@
+{% extends 'admin/admin_main.html' %}
+{% block orm %}
+    <form class="form-horizontal" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">{{ form.name.label }}</label>
+            <div class="col-sm-6">
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="slogan" class="col-sm-2 control-label">{{ form.slogan.label }}</label>
+            <div class="col-sm-6">
+                {{ form.slogan }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.sale_price.label }}</label>
+            <div class="col-sm-6">
+                {{ form.sale_price }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="commodity_figure_path"
+                   class="col-sm-2 control-label">{{ form.commodity_figure_path.label }}</label>
+            <div class="col-sm-6">
+                {{ form.commodity_figure_path }}
+            </div>
+            <div class="col-sm-4"><img id="img" src="" alt="" class="img-rounded"
+                                       style="width: 100px;height: 100px"></div>
+        </div>
+        <div class="form-group">
+            <label for="interface" class="col-sm-2 control-label">{{ form.interface.label }}</label>
+            <div class="col-sm-6">
+                {{ form.interface }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="match_mainboard" class="col-sm-2 control-label">{{ form.match_mainboard.label }}</label>
+            <div class="col-sm-6">
+                {{ form.match_mainboard }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="series" class="col-sm-2 control-label">{{ form.series.label }}</label>
+            <div class="col-sm-6">
+                {{ form.series }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.model.label }}</label>
+            <div class="col-sm-6">
+                {{ form.model }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.core_count.label }}</label>
+            <div class="col-sm-6">
+                {{ form.core_count }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.GHz.label }}</label>
+            <div class="col-sm-6">
+                {{ form.GHz }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.manufacturing_technique.label }}</label>
+            <div class="col-sm-6">
+                {{ form.manufacturing_technique }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sale_price" class="col-sm-2 control-label">{{ form.power.label }}</label>
+            <div class="col-sm-6">
+                {{ form.power }}
+            </div>
+        </div>
+        {{ form.csrf_token }}
+        {{ form.submit }}
+
+    </form>
+{% endblock %}
+{% block script %}
+     <script>
+        $('#commodity_figure_path').on('change', function () {
+            var file = $('#commodity_figure_path')[0].files[0];
+            var file_reader = new FileReader();
+            file_reader.readAsDataURL(file);
+            file_reader.onload = function () {
+                $('#img').attr('src', file_reader.result)
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'usr/userorder.html' %}
+{% block order %}
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>日期</td>
+                <td>订单号</td>
+                <td>商品</td>
+                <td>订单状态</td>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.ordered_time }}</td>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.detail.object.name }}*{{ order.count }}
+                        <img src="/static{{ order.detail.object.commodity_figure_path }}" alt="" width="30px">
+                    </td>
+                    <td>{{ order.status.value }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.all').addClass('active')
+        })
+    </script>
+{% endblock %}

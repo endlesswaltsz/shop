@@ -1,0 +1,25 @@
+{% extends 'usr/userorder.html' %}
+{% block order %}
+    {% for order in order_dict.items() %}
+        <div class="panel panel-default">
+            <div class="panel-heading">支付编号:{{ order.0 }}<span class="pull-right" style="color: darkred;">付款额:{{ order.1.sum }}</span></div>
+            <div class="panel-body">
+                {% for foo in order.1.orders %}
+                    <p>{{ foo.detail.object.name }}*{{ foo.count }}</p>
+                {% endfor %}
+
+                <p></p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.unsend').addClass('active')
+        })
+    </script>
+{% endblock %}

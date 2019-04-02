@@ -1,0 +1,173 @@
+{% extends 'usr/user_base.html' %}
+{% block css %}
+    <style>
+        .quantity-remove, .quantity-add {
+            cursor: pointer;
+        }
+
+        .quantity-add.glyphicon, .quantity-remove.glyphicon {
+            display: block;
+            cursor: pointer;
+        }
+
+        input {
+            width: 20px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">全部商品</div>
+        <div class="panel-body">
+        </div>
+    {% if list %}
+        <table class="table">
+            <thead>
+            <tr>
+                <td class="col-md-1">全选</td>
+                <td class="col-md-5">商品</td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>小计</td>
+                <td>操作</td>
+            </tr>
+
+                {% for item in list %}
+                    <tr class="rrow">
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="check">
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" src="/static{{ item.0.object.commodity_figure_path }}"
+                                             alt="..." style="width: 100px">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">{{ item.0.object.name }}</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="price">{{ item.0.object.sale_price }}</td>
+                        <td class="count" bb="{{ item.0.id }}">
+                            <div>
+                                <a class="btn btn-default">-</a>
+                                <input class="input" value="{{ item.1 }}" type="text"/>
+                                <a class="btn btn-default plus">+</a>
+                            </div>
+
+                        </td>
+                        <td class="money">
+
+                        </td>
+                        <td><a href="{{ url_for('usr.cart_delete_item') }}?item={{ item.0.id }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+
+
+                </thead>
+                </table>
+                <div class="col-md-offset-7 col-md-3"><h4>总价：<b class="sum" style='color: red'>￥0.00</b></h4></div>
+                <div class=col-md-2">
+                    <p style="width: 100%;"><a class="btn btn-primary btn-lg" role="button"
+                                               style="color:whitesmoke;">提交订单</a></p>
+                </div>
+            {% else %}
+            <h2 class="pull-right">购物车内暂无商品</h2>
+            {% endif %}
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $('.btn-default').on('click', function () {
+            var func = '';
+            var _this = this
+            var pid = $(this).parent().parent().attr('bb');
+            if ($(this).hasClass('plus')) {
+                func = '+'
+            } else {
+                func = '-'
+                if ($(this).parent().children('input').val() < 2) {
+                    return
+                }
+            }
+            $.ajax({
+                url: '{{ url_for('usr.cart_change') }}',
+                method: 'post',
+                data: {'func': func, 'pid': pid},
+                success: function (data) {
+                    if (data.status == 'success') {
+                        $(_this).parent().children('input').attr('value', data.count)
+                        reset()
+                        sum_all()
+
+                    }
+                }
+            })
+        })
+        $('.btn-lg').on('click', function () {
+
+            $.ajax({
+                url: '{{ url_for('usr.create_order') }}',
+                method: 'post',
+                data: {'list': JSON.stringify(gather_all())},
+                success: function (data) {
+                    if (data.status == 'success') {
+                        window.location.href = data.url
+                    }
+                }
+            })
+        })
+        $(document).ready(function () {
+            reset()
+        })
+
+        function reset() {
+            $('.rrow').each(function () {
+                var a = $(this).children('.price').text();
+                var b = $(this).children('.count').children().children('input').val()
+                $(this).children('.money').text('￥' + (parseInt(a) * parseInt(b)).toFixed(2))
+            })
+        }
+
+        $('.check').on('click', function () {
+            if ($(this).hasClass('checked')) {
+                $(this).removeClass('checked')
+            } else {
+                $(this).addClass('checked')
+            }
+            sum_all()
+
+
+        })
+
+        function sum_all() {
+            var sum = 0
+            $('.checked').each(function () {
+                var a = $(this).parents('td').nextAll('.money').text().slice(1)
+                sum = sum + parseInt(a)
+            })
+            $('.sum').text('￥' + sum.toFixed(2))
+        }
+
+        function gather_all() {
+            var list = []
+            $('.checked').each(function () {
+                list.push([$(this).parents('td').nextAll('.count').attr('bb'),
+                    $(this).parents('td').nextAll('.count').children('div').children('.input').val()])
+            })
+            return list
+
+
+        }
+    </script>
+
+{% endblock %}

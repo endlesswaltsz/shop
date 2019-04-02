@@ -1,0 +1,61 @@
+{% extends 'web/index.html' %}
+{% block css %}
+    <style>
+        .thumbnail p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block result %}
+    <div class="container">
+        <div class="panel panel-default col-md-offset-2">
+            <div class="panel-heading">查询结果</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% if list %}
+                        {% for item in list.items %}
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <a href="{{ url_for('web.product_detail') }}?item={{ item.PID }}"
+                                       title="{{ item.slogan }}"><img
+                                            src="/static{{ item.commodity_figure_path }}" alt=""></a>
+                                    <div class="caption">
+                                        <p><strong
+                                                style="color: red;font-size: 15px">￥{{ item.sale_price }}</strong>
+                                        </p>
+                                        <a style="font-size: 11px;cursor: pointer;text-decoration: none"
+                                           title="{{ item.slogan }}">{{ item.name|truncate(25) }}</a>
+                                        <p><span
+                                                style="font-size: 11px;color: #ffaa71 ">{{ item.slogan|truncate(20) }}</span>
+                                        </p>
+                                        <p><a href="">{{ item.store.name }}</a></p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+                        <h3>暂无商品</h3>
+                    {% endif %}
+
+
+                </div>
+                <div class="row">
+                    {% if list.has_prev %}
+                        <a href="{{ url_for('web.get_list', page=list.prev_num) }}">&lt;&lt;
+                            上一页</a>{% else %}
+                        &lt;
+                        &lt; 上一页{% endif %} |
+                    {% if list.has_next %}
+                        <a href="{{ url_for('web.get_list', page=list.next_num) }}">下一页
+                            &gt;&gt;</a>{% else %}
+                        下一页 &gt;&gt;{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

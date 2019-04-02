@@ -1,0 +1,36 @@
+{% extends 'web/basehome.html' %}
+{% block search %}
+
+    <div class="row col-md-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">用户注册</div>
+            <div class="panel-body">
+                <form class="form-horizontal" method="post">
+                    {% for foo in form %}
+                        {% if not loop.last %}
+                            <div class="form-group">
+                                <label for="{{ foo.id }}" class="col-sm-2 control-label">{{ foo.label }}</label>
+                                <div class="col-sm-10">
+                                    {{ foo }}
+                                </div>
+                                <div class="col-md-12">
+                                    <font style="color:red">{{ foo.errors.0 }}</font>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-3">
+                            <button type="submit" class="btn btn-default">注册</button>
+                        </div>
+{#                        <div class="col-sm-offset-1 col-sm-3">#}
+{#                            <img src="/random_image/" alt="" id="random_image">#}
+{#                        </div>#}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

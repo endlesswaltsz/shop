@@ -1,0 +1,86 @@
+{% extends 'usr/userorder.html' %}
+{% block order %}
+    <table class="table">
+        <thead>
+        <tr>
+            <td>订单号</td>
+            <td class="col-md-5">商品</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+        </tr>
+        {% for item in lists %}
+            <tr class="rrow">
+                <td>{{ item.2 }}</td>
+                <td>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object" src="/static{{ item.0.object.commodity_figure_path }}"
+                                     alt="..." style="width: 100px">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading">{{ item.0.object.name }}</h6>
+                        </div>
+                    </div>
+                </td>
+                <td class="price">{{ item.0.object.sale_price }}</td>
+                <td class="count">
+                    {{ item.1 }}
+                </td>
+                <td class="money">
+
+                </td>
+            </tr>
+        {% endfor %}
+
+        </thead>
+    </table>
+    <div class="col-md-offset-7 col-md-3"><h4>总价：<b class="sum" style='color: red'>￥0.00</b></h4></div>
+    <div class=col-md-2">
+        <p style="width: 100%;"><a class="btn btn-primary btn-lg" aa="{{ alipay_id }}" role="button"
+                                   style="color:whitesmoke;">去支付</a></p>
+
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.unpay').addClass('active')
+            reset()
+            sum_all()
+        })
+
+        function sum_all() {
+            var sum = 0
+            $('.rrow').each(function () {
+                var a = $(this).children('.money').text().slice(1)
+                sum = sum + parseInt(a)
+            })
+            $('.sum').text('￥' + sum.toFixed(2))
+        }
+
+        function reset() {
+            $('.rrow').each(function () {
+                var a = $(this).children('.price').text();
+                var b = $(this).children('.count').text()
+                $(this).children('.money').text('￥' + (parseInt(a) * parseInt(b)).toFixed(2))
+            })
+        }
+        $('.btn-lg').on('click',function () {
+            $.ajax({
+                url:'{{ url_for('usr.redirect_alipay') }}',
+                method:'post',
+                data:{'alipay_id':$(this).attr('aa')},
+                success:function (data) {
+                    console.log(data)
+                    if (data.status=='success'){
+                        window.location.href=data.url
+                    }
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

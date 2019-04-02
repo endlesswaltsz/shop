@@ -1,0 +1,40 @@
+{% extends 'usr/userinfo.html' %}
+{% block edit %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {% for msg in get_flashed_messages(category_filter=["err"]) %}
+                <p style="color:red;">{{ msg }}</p>
+            {% endfor %}
+            {% for msg in get_flashed_messages(category_filter=["success"]) %}
+                <p style="color:green;">{{ msg }}</p>
+            {% endfor %}
+            <img style="width: 150px;height: 150px" id="img"
+                 src="{% if session.avatar %}/static/{{ session.avatar }}{% else %}/static/files/avatar/no-img.jpg{% endif %}"
+                 alt="..."
+                 class="img-circle-rounded">
+            <form role="form" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="input_oldpwd"><span
+                                class="glyphicon glyphicon-lock"></span>&nbsp;{{ form.avatar.label }}</label>
+                        {{ form.avatar }}
+                    </div>
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $('#avatar').on('change', function () {
+            var file = $('#avatar')[0].files[0];
+            var file_reader = new FileReader();
+            file_reader.readAsDataURL(file);
+            file_reader.onload = function () {
+                $('img').attr('src', file_reader.result, 'style', 'width: 100px;height: 100px')
+            }
+        });
+    </script>
+{% endblock %}
