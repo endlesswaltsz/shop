@@ -481,14 +481,14 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Flask server.Flask (:manage.py)" />
-      <item itemvalue="Python.pro_flask" />
+      <item itemvalue="Python.admin_model" />
+      <item itemvalue="Python.create_table" />
+      <item itemvalue="Python.emails" />
       <item itemvalue="Python.emailtest" />
       <item itemvalue="Python.manage" />
-      <item itemvalue="Python.emails" />
-      <item itemvalue="Python.create_table" />
-      <item itemvalue="Python.admin_model" />
+      <item itemvalue="Python.pro_flask" />
       <item itemvalue="Python.test" />
+      <item itemvalue="Flask server.Flask (:manage.py)" />
     </list>
     <recent_temporary>
       <list>

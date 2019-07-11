@@ -1,6 +1,7 @@
 # from flask_script import Manager
 # add by Yancy - branch 1
 # add by hyz - branch dev
+# 8:56
 
 from proj import create_app
 app=create_app()
