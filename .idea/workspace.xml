@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/manage.py" line="10" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="894943a0-efbc-4fda-901e-d93b4312d080" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-    </list>
+    <list default="true" id="894943a0-efbc-4fda-901e-d93b4312d080" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,8 +90,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/manage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+            <state relative-caret-position="150">
+              <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proj/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -481,14 +491,14 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Flask server.Flask (:manage.py)" />
-      <item itemvalue="Python.pro_flask" />
+      <item itemvalue="Python.admin_model" />
+      <item itemvalue="Python.create_table" />
+      <item itemvalue="Python.emails" />
       <item itemvalue="Python.emailtest" />
       <item itemvalue="Python.manage" />
-      <item itemvalue="Python.emails" />
-      <item itemvalue="Python.create_table" />
-      <item itemvalue="Python.admin_model" />
+      <item itemvalue="Python.pro_flask" />
       <item itemvalue="Python.test" />
+      <item itemvalue="Flask server.Flask (:manage.py)" />
     </list>
     <recent_temporary>
       <list>
@@ -539,7 +549,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309307000" />
+    <option name="totallyTimeSpent" value="309537000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="811" extended-state="6" />
@@ -669,16 +679,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proj/static/base/images/4df86a8a67652285.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proj/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../hy/Lib/site-packages/werkzeug/security.py" />
     <entry file="file://$PROJECT_DIR$/../hy/Lib/site-packages/werkzeug/serving.py" />
@@ -849,10 +849,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/proj/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        <state relative-caret-position="150">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
