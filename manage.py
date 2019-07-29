@@ -6,7 +6,7 @@ import sys
 import os
 
 from proj import create_app
-app=create_app()
+app = create_app()
 
 
 # manage = Manager(app)
