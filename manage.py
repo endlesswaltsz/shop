@@ -4,7 +4,7 @@
 # 8:56
 
 from proj import create_app
-app=create_app()
+app = create_app()
 
 
 # manage = Manager(app)
